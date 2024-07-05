@@ -1,4 +1,21 @@
-.test {
-    color: red;
-    border: 3px solid rgb(12, 168, 83);
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #42c5cb;
+    padding: 10px 0;
+}
+.main {
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.company-list {
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
 }

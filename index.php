@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/app/blocks/style.css" type="text/css">
-    
-    <title>Document</title>
-</head>
-<body>
-    <div class="test">123</div>
-    <?=$_SERVER['DOCUMENT_ROOT'] ?>
-</body>
-</html>
+<?php
+
+include 'app/blocks/header/header.php'; 
+?>
+
+<section class="company main">
+    <div class="company-list">
+        <h2>Список компаний</h2>
+    </div>
+</section>
+
+<?php
+include 'app/blocks/footer/footer.php'; 
