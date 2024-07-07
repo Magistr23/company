@@ -8,10 +8,12 @@ use PDO;
 
 class CommentCompany extends connect 
 {
+
+    protected $name_table = 'reviews';
     public function addComment($fio, $file, $comment, $id_company)
     {
         try {
-            $statement = $this->conn->prepare("INSERT INTO reviews SET fio=:fio, photo=:photo, comment=:comment, confirm='0', id_company=:id_company");
+            $statement = $this->conn->prepare("INSERT INTO ".$this->name_table." SET fio=:fio, photo=:photo, comment=:comment, confirm='0', id_company=:id_company");
             $statement->bindParam(":fio", $fio);
             $statement->bindParam(":photo", $file);
             $statement->bindParam(":comment", $comment);
@@ -38,7 +40,7 @@ class CommentCompany extends connect
     public function listCommentOne($commentid)
     {
         try {
-            $statement = $this->conn->prepare('SELECT * FROM reviews WHERE id=:id LIMIT 1');
+            $statement = $this->conn->prepare('SELECT * FROM '.$this->name_table.' WHERE id=:id LIMIT 1');
             $statement->bindParam(":id", $commentid);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
@@ -50,7 +52,7 @@ class CommentCompany extends connect
     public function updateComment($fio, $comment,$id_comment)
     {
         try {
-            $statement = $this->conn->prepare('UPDATE reviews SET fio=:fio, comment=:comment WHERE id=:id');
+            $statement = $this->conn->prepare('UPDATE '.$this->name_table.' SET fio=:fio, comment=:comment WHERE id=:id');
             $statement->bindParam(":fio", $fio);
             $statement->bindParam(":comment", $comment);
             $statement->bindParam(":id", $id_comment);
@@ -63,7 +65,7 @@ class CommentCompany extends connect
     public function delPhoto($photo, $id_comment)
     {
         try {
-            $statement = $this->conn->prepare('UPDATE reviews SET photo=:photo WHERE id=:id');
+            $statement = $this->conn->prepare('UPDATE '.$this->name_table.' SET photo=:photo WHERE id=:id');
             $statement->bindParam(":photo", $photo);
             $statement->bindParam(":id", $id_comment);
             $statement->execute();
@@ -88,7 +90,7 @@ class CommentCompany extends connect
     public function commentApprove($id)
     {
         try {
-            $statement = $this->conn->prepare('UPDATE reviews SET confirm="1" WHERE id=:id');
+            $statement = $this->conn->prepare('UPDATE '.$this->name_table.' SET confirm="1" WHERE id=:id');
             $statement->bindParam(":id", $id);
             $statement->execute();
         } catch (PDOException $e) {

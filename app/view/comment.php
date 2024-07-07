@@ -4,15 +4,19 @@ use App\Modules\Comment;
 $list = new Comment();
 $commentAll = $list->listCommentOne($_GET['comment']);
 
+//Редактирование соментария
 if(isset($_POST['edit'])) {
     $list->updateComment($_POST['fio'],$_POST['comment'],$_POST['id_comment']);
 } elseif (isset($_POST['del_photo'])) {
+    unlink($commentAll['photo']);
     $list->delPhoto($_POST['id_comment']);
 } elseif (isset($_POST['approve'])) {
     $list->commentApprove($_GET['comment']);
 }
 
 echo "<div class='comment_company main'>";
+
+//Если админ, то выдаёт админ кнопки
 if(isset($_SESSION['admin']['role']) && $_SESSION['admin']['role'] == 1) {
     ?>
     
@@ -38,6 +42,7 @@ if(isset($_SESSION['admin']['role']) && $_SESSION['admin']['role'] == 1) {
     </form>
     <?php
     } else {
+    //Если не админ, то не выдаёт админ кнопки
     ?>
     <div class="comment_company-title">
         <h2>Коментарий от <?= $commentAll['fio']?></h2>

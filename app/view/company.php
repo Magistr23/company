@@ -4,17 +4,22 @@ use App\Modules\AddCompany;
 use App\Modules\Comment;
 use App\Modules\listCom;
 
+
+//Подключение модулей
 $list = new listCom();
 $company = new AddCompany();
 $listComment = new Comment();
 
+//Удаление компании
 if (isset($_POST['del'])) {
     $company->delCompanys($_POST['id']);
 }
+//редактирование компании
 if (isset($_POST['edit'])) {
     $company->editCompanys($_POST['title_company'], $_POST['text_company'],$_POST['id']);
 }
 
+//обработка файлов
 $dirComment = 'app/img/img/';
 if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
     include_once 'app/view/comment.php';
@@ -22,13 +27,15 @@ if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
     if (isset($_POST['add-comment'])) {
         if (isset($_POST['fio']) && isset($_POST['comment']) && is_numeric($_GET['company'])) {
             if (isset($_FILES['file'])) {
-                $dir = $dirComment.$_FILES['file']['name'];
+                $fileName = uniqid('php_');
+                $dir = $dirComment.$fileName.$_FILES['file']['name'];
                 move_uploaded_file($_FILES["file"]["tmp_name"], $dir); 
                 $createComment = new Comment();
                 $createComment->createComment($_POST['fio'],$dir,$_POST['comment'], $_GET['company']);
             }
         }
     }
+    //если админ, то выводит админ кнопки
     if (isset($_GET['company']) && is_numeric($_GET['company'])) {
         if (isset($_SESSION['admin']['role']) && $_SESSION['admin']['role'] == 1) {
             ?>
@@ -46,6 +53,7 @@ if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
             <div class="company-title">
                 <h2>
                     <?php
+                    //если админ, то выводит админ поле
                     if (isset($_SESSION['admin']['role']) && $_SESSION['admin']['role'] == 1) {
                         ?>
                         <input type="text" name="title_company" value="<?=$comp['title']?>">
@@ -63,6 +71,7 @@ if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
                 </div>
                 <div class="company-info">
                     <?php
+                    //если админ, то выводит админ поле
                 if (isset($_SESSION['admin']['role']) && $_SESSION['admin']['role'] == 1) {
                         ?>
                         <textarea type="text" name="text_company" value="<?=$comp['description']?>"><?=$comp['description']?></textarea>
@@ -81,13 +90,15 @@ if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
                 <input type="file" name="file" id="">
 
                 <label for="text"> Напишите свой коментарий</label>
-                <textarea name="comment" id="text"></textarea>
+                <textarea name="comment" id="text">
+                </textarea>
 
                 <input type="submit" name="add-comment">
             </form>
         </div>
         
         <?php
+        //вывод компаний
         $list = $listComment->listCommentALL($_GET['company']);
         echo "<div class='main comment'>";
         echo "<h2>Коментарии</h2>";
@@ -109,6 +120,7 @@ if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
             <?php   
         }
         echo "</div>";
+        //если админ, то выводит коменты на подтерждения
         if (isset($_SESSION['admin']['role']) && $_SESSION['admin']['role'] == 1) {
             $listComment = new Comment();
             $list = $listComment->commentALL($_GET['company']);
@@ -131,10 +143,9 @@ if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
                 </div>
                 <?php   
             }
-            // $listCommentALL = $listComment->($_GET['company']);
         }
     } else {
-
+//пагинация
         if (is_numeric($_GET['page'])) {
             $page = $_GET['page'];
         } else $page = 1;

@@ -18,7 +18,7 @@ class chekUsers extends connect
                 if ($fio == $user['fio']) {
                    if (password_verify($pass, $user['password'])) {
                        if ($user['role'] > 0) {
-                           $_SESSION['admin'] = ['login' => $_POST['nicname']];
+                           $_SESSION['admin'] = ['login' => $user['fio']];
                            $_SESSION['admin'] = ['id' => $user['id']];
                            $_SESSION['admin'] = ['role' => $user['role']];
                            header('location: /admin');

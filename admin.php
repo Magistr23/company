@@ -5,21 +5,24 @@ use App\Modules\User;
 include_once 'app/blocks/header/header.php';
 echo "<div class='main'>";
 
+//если нажали на авторизацию
 if (isset($_POST['aut'])) {
     $user = new User();
     $user->chek($_POST['nicname'],$_POST['pass']);
 }
+//обработка и отправка создание компании
 $dirLogo = 'app/img/logo/';
 if (isset($_POST['add-company'])) {
     if (isset($_POST['title']) && isset($_POST['desc'])) {
         if (isset($_FILES['file'])) {
-            move_uploaded_file($_FILES["file"]["tmp_name"], $dirLogo.$_FILES['file']['name']); 
+            $fileName = uniqid('php_');
+            move_uploaded_file($_FILES["file"]["tmp_name"], $dirLogo.$fileName.$_FILES['file']['name']); 
             $addCompany = new AddCompany();
-            $addCompany->createCompany($_POST['title'], $dirLogo.$_FILES['file']['name'] ,$_POST['desc']);
+            $addCompany->createCompany($_POST['title'], $dirLogo.$fileName.$_FILES['file']['name'] ,$_POST['desc']);
         }
     }
 }
-
+//Если админ, то выводит создание компании
 if (isset($_SESSION['admin']) && $_SESSION['admin']['role'] == 1) {
     if (!isset($_GET['company'])) {
         if(!isset($_GET['comment'])) {
@@ -44,11 +47,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin']['role'] == 1) {
     }
     include 'app/view/company.php';
 } elseif (isset($_SESSION['user'])) {
+    //Если не админ но зарегестрирован, то не пускает дальше
     echo "<div class='main'>";
     echo 'Вы уже авторизованы! И не являетесь админом, вам тут делать не чего';
     echo "</div>";
 } else {
-    ?>
+    //Если не админ и не зарегестрирован, то выводит авторизацию
+    ?> 
     <div class="container-form aut main form" id="aut"> 
         <div class="popup-box"> 
             <h2>Авторизация</h2> 
