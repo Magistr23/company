@@ -110,11 +110,14 @@ if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
         }
         echo "</div>";
         if (isset($_SESSION['admin']['role']) && $_SESSION['admin']['role'] == 1) {
+            $listComment = new Comment();
             $list = $listComment->commentALL($_GET['company']);
+
             foreach ($list as $listComment) {
                 ?>
                 <div class="comment-title">
                     <?= $listComment['fio'] ?>
+                    <p>Ждёт подтверждения</p>
                 </div>
                 <div class="comment-info">
                     <a href="?comment=<?=$listComment['id']?>">
