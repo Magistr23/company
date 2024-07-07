@@ -26,8 +26,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin']['role'] == 1) {
             ?>
             <div class="create-company main">
             <h2>Создание копании</h2>
-            <div class="admin">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" class="admin" enctype="multipart/form-data">
                     <label for="company"> Название компании</label>
                     <input type="text" name="title" id="company">
 
@@ -40,7 +39,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin']['role'] == 1) {
                     <input type="reset">
                 </form>
             </div>
-        </div>
         <?php
         }
     }

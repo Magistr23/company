@@ -149,23 +149,42 @@ header {
 .edit_form {
     margin-top: 10px;
 }
-
 .company-logo {
-    width: 25%;
+    width: 50%;
     margin-top: 10px;
 }
 .company-logo img{
     width: 100%;
 }
+
+.company-photo {
+    width: 50%;
+    margin-top: 10px;
+}
+.company-photo img{
+    width: 100%;
+}
 .company-title {
     margin-top: 10px;
 }
+
 .admin {
     display: flex;
     flex-direction: column;
+    width: 50%;
+}
+form textarea, form input, form label {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 footer {
     background: #42c5cb;
     padding: 10px 0;
     margin: 10px 0 0;
+}
+
+@media screen and (max-width: 900px) {
+    .main {
+        width: 98%;
+    }
 }

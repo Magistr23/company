@@ -74,7 +74,7 @@ if (isset($_GET['comment']) && is_numeric($_GET['comment'])) {
                 </div>
             </div>
             </form>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="" class="admin" method="post" enctype="multipart/form-data">
                 <label for="fio"> Напишите своё фио</label>
                 <input type="text" id="fio" name="fio">
 

@@ -15,11 +15,7 @@ if(isset($_POST['reg'])) {
         if ($_POST['pass'] === $_POST['repeat-pass']) {
             $user = new User;
             $user->userCreate($_POST['nicname'],$_POST['pass']);
-        } else {
-            $_SESSION['warning'] = 'Пароли не совпадают!';
         }
-    } else {
-        $_SESSION['warning'] = 'Заполнили не все поля!';
     }
 } elseif (isset($_POST['aut'])) {
         $user = new User();

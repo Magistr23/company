@@ -40,7 +40,6 @@ class CommentCompany extends connect
         try {
             $statement = $this->conn->prepare('SELECT * FROM reviews WHERE id=:id LIMIT 1');
             $statement->bindParam(":id", $commentid);
-            // $statement->bindParam(":id_company", $companysId);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
