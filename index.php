@@ -1,13 +1,12 @@
 <?php
+session_start();
 
 include 'app/blocks/header/header.php'; 
-?>
 
-<section class="company main">
-    <div class="company-list">
-        <h2>Список компаний</h2>
-    </div>
-</section>
+echo "<div class='main'>";
 
-<?php
+include 'app/view/company.php';
+
+echo "</div>";
+
 include 'app/blocks/footer/footer.php'; 
