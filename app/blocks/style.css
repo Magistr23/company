@@ -181,6 +181,10 @@ footer {
     background: #42c5cb;
     padding: 10px 0;
     margin: 10px 0 0;
+    position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
 }
 
 @media screen and (max-width: 900px) {
